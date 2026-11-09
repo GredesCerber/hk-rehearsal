@@ -28,7 +28,7 @@
     },
     {
       "name": "web-types",
-      "run": "npm --prefix web exec -- tsc --noEmit -p .",
+      "run": "npm --prefix web exec -- tsc -b web --noEmit",
       "when_exists": "web/tsconfig.json"
     },
     {
@@ -38,7 +38,7 @@
     },
     {
       "name": "api-types",
-      "run": "npm --prefix api exec -- tsc --noEmit -p .",
+      "run": "npm --prefix api exec -- tsc -b api --noEmit",
       "when_exists": "api/tsconfig.json"
     },
     {
@@ -58,15 +58,15 @@
   "tiers": {
     "high": {
       "claude": "opus",
-      "codex": ""
+      "codex": "gpt-6.1-sol"
     },
     "mid": {
       "claude": "sonnet",
-      "codex": ""
+      "codex": "gpt-6.1-terra"
     },
     "low": {
       "claude": "haiku",
-      "codex": ""
+      "codex": "gpt-6-luna"
     }
   },
   "hosts": [

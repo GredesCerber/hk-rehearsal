@@ -1,6 +1,6 @@
 # Проверки кода: линтер, типы, тесты из hk.config.json. Работают одинаково для Claude, Codex и людей.
 # Правила PR (защищённые файлы, приёмочные тесты, ревью агента) — в hk-guard.yml, он запускается из main.
-# Требует переменную HK_HARNESS (Settings → Variables), например @gredescerber/hackathon-harness@0.2.5.
+# Требует переменную HK_HARNESS (Settings → Variables), например @gredescerber/hackathon-harness@0.2.7.
 # harness ставится из GitHub Packages (приватный пакет): доступ репо продукта — см. README «Установка в CI».
 # Защиту main, переменную и метки настраивает `hk github setup --apply`.
 name: hk
@@ -52,6 +52,15 @@ jobs:
           else
             echo "::warning::В base-коммите нет hk.config.json — используется версия из PR"
           fi
+      # Чистый runner: без node_modules шаги lint/tsc/test из hk.config.json падают на каждом PR.
+      # Python-зависимости ставит сам `uv run` (синхронизирует окружение api/ перед запуском).
+      - name: Зависимости продукта (web/, api/)
+        run: |
+          for d in web api; do
+            if [ -f "$d/package-lock.json" ]; then npm --prefix "$d" ci --no-audit --no-fund
+            elif [ -f "$d/package.json" ]; then npm --prefix "$d" install --no-audit --no-fund
+            fi
+          done
       - name: hk check
         run: hk check --json
       - name: Соответствие правилам хакатона
