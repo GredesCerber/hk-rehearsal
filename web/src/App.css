@@ -1,0 +1,16 @@
+main {
+  max-width: 46rem;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #dbe1e8;
+  border-radius: 0.75rem;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+[role='status'] {
+  color: #526071;
+}
