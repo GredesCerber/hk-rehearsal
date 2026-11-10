@@ -75,7 +75,7 @@
   ],
   "review": {
     "approvals": 1,
-    "approvals_high": 2,
+    "approvals_high": 1,
     "fallback_minutes": 30
   },
   "event": null,
